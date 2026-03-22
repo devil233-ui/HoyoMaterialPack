@@ -1,4 +1,5 @@
 //开发维护&&反馈群190370034
+//本仓库暂不公开，请在getRemoteJson方法下填入秘钥
 import plugin from '../../lib/plugins/plugin.js'
 import puppeteer from '../../lib/puppeteer/puppeteer.js'
 import fetch from 'node-fetch'
@@ -59,7 +60,6 @@ export class MyMaterialPack extends plugin {
 
     let img = await puppeteer.screenshot('materialPack', {
       ...data,
-      // 完全指向你搬迁后的 genshin 资源目录
       tplFile: './plugins/genshin/resources/html/materialPack/materialPack.html',
       pluResPath: `${this._path}/plugins/genshin/resources/`
     })
@@ -111,7 +111,6 @@ export class MyMaterialPack extends plugin {
 
     let img = await puppeteer.screenshot('materialWeeklyPack', {
       ...data,
-      // 完全指向你搬迁后的 genshin 资源目录
       tplFile: `./plugins/genshin/resources/html/materialPack/materialWeeklyPack.html`,
       pluResPath: `${this._path}/plugins/genshin/resources/`
     })
@@ -130,7 +129,6 @@ export class MyMaterialPack extends plugin {
     let { role } = (await MysInfo.get(this.e, 'index')).data || {}
     if (!rawMaterials || !role) return this.e.reply('获取失败，请确保 my_computeBody.json 正常'), false
 
-    // 撤销中文污染，完全保留英文 key，让 HTML 自己的 typeMap 去接管翻译和 CSS
     let materials = {}
     if (isAll) {
       materials = rawMaterials
@@ -143,17 +141,74 @@ export class MyMaterialPack extends plugin {
     let miaoPath = path.resolve('./plugins/miao-plugin/resources')
     
     return {
-      _res_path: `${genshinPath}/`, // HTML 会用这个找你的 CSS
-      _miao_path: `${miaoPath}/`,   // HTML 会用这个找底图和头像
+      _res_path: `${genshinPath}/`,
+      _miao_path: `${miaoPath}/`,
       defaultLayout: path.join(miaoPath, 'common/layout/default.html'),
-      sys: { copyright: '数据源：本地字典维护 + 官方大地图同步' },
+      sys: { copyright: '数据源：GitHub远程字典 + 官方大地图同步' },
       uid, role, materials
     }
   }
 
+  async getRemoteJson(fileName) {
+    // 👇 填入你的 GitHub Personal Access Token (classic 或 fine-grained 均可)
+    const GH_PAT = ''; 
+    
+    try {
+      let url = `https://raw.githubusercontent.com/devil233-ui/GsMaterialPack/master/data/${fileName}`
+      
+      let res = await fetch(url, {
+        method: 'get',
+        headers: {
+          'Authorization': `token ${GH_PAT}`,
+          'Accept': 'application/vnd.github.v3.raw',
+          'User-Agent': 'Yunzai-Bot-MaterialPack'
+        }
+      }).then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      
+      return res
+    } catch (err) {
+      console.error(`[材料背包] 私库访问失败 ${fileName}:`, err.message)
+      // 如果报错 HTTP 404，大概率是 Token 权限没给够（需要 repo 权限）或路径错了
+      return null
+    }
+  }
+  
+//   async getRemoteJson(fileName) {
+//     try {
+//       let url = `https://raw.githubusercontent.com/devil233-ui/GsMaterialPack/master/data/${fileName}`
+//       let res = await fetch(url).then(res => res.json())
+//       return res
+//     } catch (err) {
+//       console.error(`[材料背包] 获取远程字典 ${fileName} 失败:`, err.message)
+//       return null
+//     }
+//   }
+
   async fetchRawMaterials(uid, ck) {
     let ret = { length: 0 }
     let mergedData = new Map()
+
+    // 拉取远程 material.json 构建精准分类映射
+    let materialJson = await this.getRemoteJson('material.json')
+    let customTypeMap = {}
+    if (materialJson && materialJson.data) {
+      // 将中文大类映射为 HTML 模板需要的英文 key (适配 materialPack.html 里的 typeMap)
+      const mapCatToEng = {
+        '区域特产': 'specialty',
+        '敌人': 'monster',
+        '背包/素材': 'other'
+        // 周本和天赋暂时走正则兜底，后期可能考虑加进来
+      }
+      for (let cat in materialJson.data) {
+        let eType = mapCatToEng[cat] || 'other'
+        for (let itemId in materialJson.data[cat]) {
+          customTypeMap[materialJson.data[cat][itemId].name] = eType
+        }
+      }
+    }
 
     // A. 大地图
     try {
@@ -163,19 +218,22 @@ export class MyMaterialPack extends plugin {
         let dict = await this.getMapDict()
         for (let [id, num] of Object.entries(mapRes.data.material_info)) {
           if (num <= 0 || !dict[id]) continue
-          let meta = Material.get(dict[id].name)
-          let type = meta?.type || 'other'
-          if (!meta && (/样本|弃局|源焰|灵犀|哀叙|残毁|假面|约束|瓶剂/.test(dict[id].name))) type = 'weekly'
-          if (!meta && (/哲学|指引|教导/.test(dict[id].name))) type = 'talent'
-          mergedData.set(dict[id].name, { id: meta?.id || Number(id), name: dict[id].name, num, icon: dict[id].icon, type })
+          let itemName = dict[id].name
+          let meta = Material.get(itemName)
+          
+          // 优先级：远程 JSON 分类 > 喵喵元数据 > 正则兜底 > other
+          let type = customTypeMap[itemName] || meta?.type || 'other'
+          if (!meta && (/样本|弃局|源焰|灵犀|哀叙|残毁|假面|约束|瓶剂/.test(itemName))) type = 'weekly'
+          if (!meta && (/哲学|指引|教导/.test(itemName))) type = 'talent'
+          
+          mergedData.set(itemName, { id: meta?.id || Number(id), name: itemName, num, icon: dict[id].icon, type })
         }
       }
     } catch (e) {}
 
-    // B. 计算器 (排除毒点版)
+    // B. 计算器
     try {
-      let bodyPath = path.resolve('./data/my_computeBody.json')
-      let baseBody = JSON.parse(await fs.readFile(bodyPath, 'utf8'))
+      let baseBody = await this.getRemoteJson('my_computeBody.json')
       if (baseBody) {
         let fpRes = await MysInfo.get(this.e, 'getFp')
         let region = (String(uid)[0] === '1' || String(uid)[0] === '2') ? 'cn_gf01' : 'cn_qd01'
@@ -189,9 +247,10 @@ export class MyMaterialPack extends plugin {
             let owned = val.lack_num < 0 ? Math.abs(val.lack_num) + val.num : val.num - val.lack_num
             if (owned > 0 && !mergedData.has(val.name)) {
               let meta = Material.get(val.name)
-              let type = meta?.type || 'other'
+              let type = customTypeMap[val.name] || meta?.type || 'other'
               if (!meta && (/样本|弃局|源焰|灵犀|哀叙|残毁|假面|约束|瓶剂/.test(val.name))) type = 'weekly'
               if (!meta && (/哲学|指引|教导/.test(val.name))) type = 'talent'
+              
               mergedData.set(val.name, { id: meta?.id || val.id, name: val.name, num: owned, icon: val.icon, type })
             }
           })
