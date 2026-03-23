@@ -1539,6 +1539,76 @@
                 "level_current": 1,
                 "level_target": 90
             }
+        },
+        {
+            "weapon": {
+                "id": 15201,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 14201,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 13201,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 12201,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 11201,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 15101,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 14101,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 13101,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 12101,
+                "level_current": 1,
+                "level_target": 70
+            }
+        },
+        {
+            "weapon": {
+                "id": 11101,
+                "level_current": 1,
+                "level_target": 70
+            }
         }
     ],
     "region": "cn_gf01",
