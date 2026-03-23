@@ -1,1321 +1,1321 @@
 {
     "items": [
         {
-            "id": 15515,
+            "weapon_id": 15515,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15514,
+            "weapon_id": 15514,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15513,
+            "weapon_id": 15513,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15512,
+            "weapon_id": 15512,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15511,
+            "weapon_id": 15511,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15509,
+            "weapon_id": 15509,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15508,
+            "weapon_id": 15508,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15507,
+            "weapon_id": 15507,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15503,
+            "weapon_id": 15503,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15502,
+            "weapon_id": 15502,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15501,
+            "weapon_id": 15501,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14522,
+            "weapon_id": 14522,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14521,
+            "weapon_id": 14521,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14520,
+            "weapon_id": 14520,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14519,
+            "weapon_id": 14519,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14518,
+            "weapon_id": 14518,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14517,
+            "weapon_id": 14517,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14516,
+            "weapon_id": 14516,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14515,
+            "weapon_id": 14515,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14514,
+            "weapon_id": 14514,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14513,
+            "weapon_id": 14513,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14512,
+            "weapon_id": 14512,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14511,
+            "weapon_id": 14511,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14509,
+            "weapon_id": 14509,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14506,
+            "weapon_id": 14506,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14505,
+            "weapon_id": 14505,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14504,
+            "weapon_id": 14504,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14502,
+            "weapon_id": 14502,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14501,
+            "weapon_id": 14501,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13516,
+            "weapon_id": 13516,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13515,
+            "weapon_id": 13515,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13514,
+            "weapon_id": 13514,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13513,
+            "weapon_id": 13513,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13512,
+            "weapon_id": 13512,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13511,
+            "weapon_id": 13511,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13509,
+            "weapon_id": 13509,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13507,
+            "weapon_id": 13507,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13505,
+            "weapon_id": 13505,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13504,
+            "weapon_id": 13504,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13502,
+            "weapon_id": 13502,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13501,
+            "weapon_id": 13501,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12515,
+            "weapon_id": 12515,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12514,
+            "weapon_id": 12514,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12513,
+            "weapon_id": 12513,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12512,
+            "weapon_id": 12512,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12511,
+            "weapon_id": 12511,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12510,
+            "weapon_id": 12510,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12504,
+            "weapon_id": 12504,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12503,
+            "weapon_id": 12503,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12502,
+            "weapon_id": 12502,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12501,
+            "weapon_id": 12501,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11519,
+            "weapon_id": 11519,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11518,
+            "weapon_id": 11518,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11517,
+            "weapon_id": 11517,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11516,
+            "weapon_id": 11516,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11515,
+            "weapon_id": 11515,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11514,
+            "weapon_id": 11514,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11513,
+            "weapon_id": 11513,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11512,
+            "weapon_id": 11512,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11511,
+            "weapon_id": 11511,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11510,
+            "weapon_id": 11510,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11509,
+            "weapon_id": 11509,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11505,
+            "weapon_id": 11505,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11504,
+            "weapon_id": 11504,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11503,
+            "weapon_id": 11503,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11502,
+            "weapon_id": 11502,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11501,
+            "weapon_id": 11501,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15434,
+            "weapon_id": 15434,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15433,
+            "weapon_id": 15433,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15432,
+            "weapon_id": 15432,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15431,
+            "weapon_id": 15431,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15430,
+            "weapon_id": 15430,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15427,
+            "weapon_id": 15427,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15426,
+            "weapon_id": 15426,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15425,
+            "weapon_id": 15425,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15424,
+            "weapon_id": 15424,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15419,
+            "weapon_id": 15419,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15418,
+            "weapon_id": 15418,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15417,
+            "weapon_id": 15417,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15416,
+            "weapon_id": 15416,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15415,
+            "weapon_id": 15415,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15414,
+            "weapon_id": 15414,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15413,
+            "weapon_id": 15413,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15412,
+            "weapon_id": 15412,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15411,
+            "weapon_id": 15411,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15410,
+            "weapon_id": 15410,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15409,
+            "weapon_id": 15409,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15408,
+            "weapon_id": 15408,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15407,
+            "weapon_id": 15407,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15406,
+            "weapon_id": 15406,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15405,
+            "weapon_id": 15405,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15404,
+            "weapon_id": 15404,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15403,
+            "weapon_id": 15403,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15402,
+            "weapon_id": 15402,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15401,
+            "weapon_id": 15401,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14434,
+            "weapon_id": 14434,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14433,
+            "weapon_id": 14433,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14432,
+            "weapon_id": 14432,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14431,
+            "weapon_id": 14431,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14430,
+            "weapon_id": 14430,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14427,
+            "weapon_id": 14427,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14426,
+            "weapon_id": 14426,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14425,
+            "weapon_id": 14425,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14424,
+            "weapon_id": 14424,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14417,
+            "weapon_id": 14417,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14416,
+            "weapon_id": 14416,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14415,
+            "weapon_id": 14415,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14414,
+            "weapon_id": 14414,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14413,
+            "weapon_id": 14413,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14412,
+            "weapon_id": 14412,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14410,
+            "weapon_id": 14410,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14409,
+            "weapon_id": 14409,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14408,
+            "weapon_id": 14408,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14407,
+            "weapon_id": 14407,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14406,
+            "weapon_id": 14406,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14405,
+            "weapon_id": 14405,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14404,
+            "weapon_id": 14404,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14403,
+            "weapon_id": 14403,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14402,
+            "weapon_id": 14402,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14401,
+            "weapon_id": 14401,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13434,
+            "weapon_id": 13434,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13433,
+            "weapon_id": 13433,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13432,
+            "weapon_id": 13432,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13431,
+            "weapon_id": 13431,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13430,
+            "weapon_id": 13430,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13427,
+            "weapon_id": 13427,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13426,
+            "weapon_id": 13426,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13425,
+            "weapon_id": 13425,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13424,
+            "weapon_id": 13424,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13419,
+            "weapon_id": 13419,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13417,
+            "weapon_id": 13417,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13416,
+            "weapon_id": 13416,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13415,
+            "weapon_id": 13415,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13414,
+            "weapon_id": 13414,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13409,
+            "weapon_id": 13409,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13408,
+            "weapon_id": 13408,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13407,
+            "weapon_id": 13407,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13406,
+            "weapon_id": 13406,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13405,
+            "weapon_id": 13405,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13404,
+            "weapon_id": 13404,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13403,
+            "weapon_id": 13403,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13402,
+            "weapon_id": 13402,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13401,
+            "weapon_id": 13401,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12433,
+            "weapon_id": 12433,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12432,
+            "weapon_id": 12432,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12431,
+            "weapon_id": 12431,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12430,
+            "weapon_id": 12430,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12427,
+            "weapon_id": 12427,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12426,
+            "weapon_id": 12426,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12425,
+            "weapon_id": 12425,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12424,
+            "weapon_id": 12424,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12418,
+            "weapon_id": 12418,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12417,
+            "weapon_id": 12417,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12416,
+            "weapon_id": 12416,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12415,
+            "weapon_id": 12415,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12414,
+            "weapon_id": 12414,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12412,
+            "weapon_id": 12412,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12411,
+            "weapon_id": 12411,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12410,
+            "weapon_id": 12410,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12409,
+            "weapon_id": 12409,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12408,
+            "weapon_id": 12408,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12407,
+            "weapon_id": 12407,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12406,
+            "weapon_id": 12406,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12405,
+            "weapon_id": 12405,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12404,
+            "weapon_id": 12404,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12403,
+            "weapon_id": 12403,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12402,
+            "weapon_id": 12402,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12401,
+            "weapon_id": 12401,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11434,
+            "weapon_id": 11434,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11433,
+            "weapon_id": 11433,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11432,
+            "weapon_id": 11432,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11431,
+            "weapon_id": 11431,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11430,
+            "weapon_id": 11430,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11428,
+            "weapon_id": 11428,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11427,
+            "weapon_id": 11427,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11426,
+            "weapon_id": 11426,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11425,
+            "weapon_id": 11425,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11424,
+            "weapon_id": 11424,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11422,
+            "weapon_id": 11422,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11418,
+            "weapon_id": 11418,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11417,
+            "weapon_id": 11417,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11416,
+            "weapon_id": 11416,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11415,
+            "weapon_id": 11415,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11414,
+            "weapon_id": 11414,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11413,
+            "weapon_id": 11413,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11412,
+            "weapon_id": 11412,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11410,
+            "weapon_id": 11410,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11409,
+            "weapon_id": 11409,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11408,
+            "weapon_id": 11408,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11407,
+            "weapon_id": 11407,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11406,
+            "weapon_id": 11406,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11405,
+            "weapon_id": 11405,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11404,
+            "weapon_id": 11404,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11403,
+            "weapon_id": 11403,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11402,
+            "weapon_id": 11402,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11401,
+            "weapon_id": 11401,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15305,
+            "weapon_id": 15305,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15304,
+            "weapon_id": 15304,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15303,
+            "weapon_id": 15303,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15302,
+            "weapon_id": 15302,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 15301,
+            "weapon_id": 15301,
             "weapon_cat_id": 12,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14305,
+            "weapon_id": 14305,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14304,
+            "weapon_id": 14304,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14303,
+            "weapon_id": 14303,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14302,
+            "weapon_id": 14302,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 14301,
+            "weapon_id": 14301,
             "weapon_cat_id": 10,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13303,
+            "weapon_id": 13303,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13302,
+            "weapon_id": 13302,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 13301,
+            "weapon_id": 13301,
             "weapon_cat_id": 13,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12306,
+            "weapon_id": 12306,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12305,
+            "weapon_id": 12305,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12303,
+            "weapon_id": 12303,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12302,
+            "weapon_id": 12302,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 12301,
+            "weapon_id": 12301,
             "weapon_cat_id": 11,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11306,
+            "weapon_id": 11306,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11305,
+            "weapon_id": 11305,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11304,
+            "weapon_id": 11304,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11303,
+            "weapon_id": 11303,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11302,
+            "weapon_id": 11302,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
         },
         {
-            "id": 11301,
+            "weapon_id": 11301,
             "weapon_cat_id": 1,
             "level_current": 1,
             "level_target": 90
