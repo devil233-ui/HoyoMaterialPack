@@ -149,19 +149,34 @@ export class MyMaterialPack extends plugin {
 
     let region = (String(uid)[0] === '1' || String(uid)[0] === '2') ? 'cn_gf01' : 'cn_qd01'
 
+    //记录角色消耗的摩拉
+    let avatarMora = 0; 
+    let silentE = { ...this.e, reply: () => {} }
+
     for (let file of ['avatarCompute.json', 'weaponCompute.json']) {
       try {
         let body = await this.getRemoteJson(file)
         if (!body) continue
-        
-        let silentE = { ...this.e, reply: () => {} }
 
-        let res = await MysInfo.get(silentE, 'compute', { body: { ...body, uid: String(uid), region } })
+        let res = await MysInfo.get(silentE, 'compute', { 
+          body: { ...body, uid: String(uid), region } 
+        })
         
         if (res?.retcode === 0 && res.data?.overall_consume) {
           res.data.overall_consume.forEach(val => {
             let owned = val.lack_num < 0 ? Math.abs(val.lack_num) + val.num : val.num - val.lack_num
             if (owned > 0) {
+              
+              // 👇 核心去重逻辑：单独拦截“摩拉”
+              if (val.name === '摩拉') {
+                if (file === 'avatarCompute.json') {
+                  avatarMora = owned; // 存下角色的摩拉
+                } else if (file === 'weaponCompute.json') {
+                  owned = Math.max(0, owned - avatarMora); // 武器的摩拉扣除角色的部分
+                  if (owned === 0) return; // 扣完没剩的直接跳过
+                }
+              }
+
               if (mergedData.has(val.name)) {
                 mergedData.get(val.name).num += owned
               } else {
