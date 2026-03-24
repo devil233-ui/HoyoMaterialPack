@@ -1,10 +1,14 @@
-//开发维护&&反馈群190370034
+//开发维护&&反馈群190370034，作者devil
 import plugin from '../../lib/plugins/plugin.js'
 import puppeteer from '../../lib/puppeteer/puppeteer.js'
 import fetch from 'node-fetch'
 import path from 'node:path'
 import MysInfo from '../genshin/model/mys/mysInfo.js'
 import { Material } from "../miao-plugin/models/index.js"
+
+// 是否在全部查询时展示受计算器上限影响的不准确材料（武器突破、天赋与武器培养培养），后者即精英+普通敌人掉落
+// true: 默认展示所有 | false: 在全量一图流中隐藏，单独查询不受影响
+const SHOW_COMPUTE_IN_ALL = true;
 
 export class MyMaterialPack extends plugin {
   constructor() {
@@ -20,7 +24,7 @@ export class MyMaterialPack extends plugin {
     })
     this.mapDict = null
     this._path = process.cwd().replace(/\\/g, "/")
-    this.GH_PAT = ''
+    // this.GH_PAT = ''
   }
 
   async materials() {
@@ -67,6 +71,12 @@ export class MyMaterialPack extends plugin {
     let materials = {}
     if (isAll) {
       materials = raw
+      if (!SHOW_COMPUTE_IN_ALL) {
+        delete materials['weapon']
+        // delete materials['boss']//你要是大世界boss都能爆那就把这行注释去掉
+        delete materials['monster']
+        delete materials['normal']
+      }
     } else if (isDevelop) {
       materials['monster'] = raw['monster'] || []
       materials['normal'] = raw['normal'] || []
@@ -196,7 +206,7 @@ export class MyMaterialPack extends plugin {
           let aTop = (a.name === '摩拉' || a.name === '智识之冕') ? 1 : 0
           let bTop = (b.name === '摩拉' || b.name === '智识之冕') ? 1 : 0
           
-          if (aTop !== bTop) return bTop - aTop
+          if (aTop !== bTop) return bTop - aTop // 权重大者排前面
           return b.id - a.id // 如果都不是，或者都是，则继续按 ID 降序排列
         })
       } 
@@ -235,9 +245,10 @@ export class MyMaterialPack extends plugin {
   async getRemoteJson(fileName) {
     try {
       let url = `https://raw.githubusercontent.com/devil233-ui/GsMaterialPack/master/data/${fileName}`
-      let res = await fetch(url, {
-        headers: { 'Authorization': `token ${this.GH_PAT}`, 'Accept': 'application/vnd.github.v3.raw' }
-      })
+      let res = await fetch(url) 
+    //   let res = await fetch(url, {
+    //     headers: { 'Authorization': `token ${this.GH_PAT}`, 'Accept': 'application/vnd.github.v3.raw' }
+    //   })
       let text = await res.text()
       text = text.replace(/,\s*([\]}])/g, '$1') // 防呆，忽略多余逗号
       return JSON.parse(text)
