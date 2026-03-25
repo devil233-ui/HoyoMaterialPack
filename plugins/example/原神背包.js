@@ -88,7 +88,7 @@ export class MyMaterialPack extends plugin {
       _res_path: `${path.resolve('./plugins/genshin/resources')}/`,
       _miao_path: `${path.resolve('./plugins/miao-plugin/resources')}/`,
       defaultLayout: path.join(path.resolve('./plugins/miao-plugin/resources'), 'common/layout/default.html'),
-      sys: { copyright: '数据源：GitHub字典 + 动态分类' },
+      sys: { copyright: '数据源：养成计算器 + 大地图' },
       uid, role, materials
     }
   }
