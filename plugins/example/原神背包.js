@@ -10,7 +10,7 @@ import { Material } from "../miao-plugin/models/index.js"
 // true: 默认展示所有 | false: 在全量一图流中隐藏，单独查询不受影响
 const SHOW_COMPUTE_IN_ALL = true;
 
-export class MyMaterialPack extends plugin {
+export class GsMaterialPack extends plugin {
   constructor() {
     super({
       name: '原神材料背包',
@@ -24,7 +24,6 @@ export class MyMaterialPack extends plugin {
     })
     this.mapDict = null
     this._path = process.cwd().replace(/\\/g, "/")
-    // this.GH_PAT = ''
   }
 
   async materials() {
@@ -62,18 +61,18 @@ export class MyMaterialPack extends plugin {
     let { ck } = await MysInfo.checkUidBing(uid, this.e) || {}
     if (!ck) return this.e.reply(MysInfo.tips), false
 
-    await this.e.reply('正在拉取GitHub字典并动态识别新材料...')
+    await this.e.reply('正在拉取全图鉴配置并动态计算，请稍候...')
 
     let raw = await this.fetchRawMaterials(uid, ck)
     let { role } = (await MysInfo.get(this.e, 'index')).data || {}
-    if (!raw || !role) return this.e.reply('获取失败，请检查GitHub秘钥或配置'), false
+    if (!raw || !role) return this.e.reply('获取失败，米游社接口异常或验证失败'), false
 
     let materials = {}
     if (isAll) {
       materials = raw
       if (!SHOW_COMPUTE_IN_ALL) {
         delete materials['weapon']
-        // delete materials['boss']//你要是大世界boss都能爆那就把这行注释去掉
+        //delete materials['boss'] //你要是大世界boss都能爆那就把这行注释去掉
         delete materials['monster']
         delete materials['normal']
       }
@@ -88,20 +87,71 @@ export class MyMaterialPack extends plugin {
       _res_path: `${path.resolve('./plugins/genshin/resources')}/`,
       _miao_path: `${path.resolve('./plugins/miao-plugin/resources')}/`,
       defaultLayout: path.join(path.resolve('./plugins/miao-plugin/resources'), 'common/layout/default.html'),
-      sys: { copyright: '数据源：养成计算器 + 大地图' },
+      sys: { copyright: 'Created By devil233-ui/GsMaterialPack' },
       uid, role, materials
     }
   }
 
+  async getDynamicComputePayload(ck) {
+    let headers = {
+      "Cookie": ck,
+      "Content-Type": "application/json",
+      "Referer": "https://webstatic.mihoyo.com",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    let avatarItems = []
+    let weaponItems = []
+    
+    try {
+      let aUrl = "https://api-takumi.mihoyo.com/event/e20200928calculate/v1/avatar/list"
+      let aRes = await fetch(aUrl, { method: 'POST', headers, body: JSON.stringify({ page: 1, size: 1000, is_all: true }) }).then(r => r.json())
+      if (aRes?.retcode === 0 && aRes.data?.list) {
+        aRes.data.list.forEach(a => {
+          if (a.id == 118 || a.id == 117) return 
+          if (a.name === "旅行者" || !a.skill_list) return 
+          let skill_list = a.skill_list.filter(s => s.max_level > 1).map(s => ({ id: s.group_id, level_current: 1, level_target: 10 }))
+          if (skill_list.length === 0) return
+          avatarItems.push({
+            avatar_id: a.id,
+            avatar_level_current: 1,
+            avatar_level_target: 90,
+            skill_list: skill_list
+          })
+        })
+      }
+    } catch (e) { console.error('获取全量角色图鉴失败', e) }
+
+    try {
+      let wUrl = "https://api-takumi.mihoyo.com/event/e20200928calculate/v1/weapon/list"
+      let wRes = await fetch(wUrl, { method: 'POST', headers, body: JSON.stringify({ page: 1, size: 1000, weapon_levels: [1, 2, 3, 4, 5] }) }).then(r => r.json())
+      if (wRes?.retcode === 0 && wRes.data?.list) {
+        wRes.data.list.forEach(w => {
+          if (w.id == 118 || w.id == 117) return 
+          weaponItems.push({
+            weapon: {
+              id: w.id,
+              level_current: 1,
+              level_target: w.weapon_level <= 2 ? 70 : (w.max_level || 90)
+            }
+          })
+        })
+      }
+    } catch (e) { console.error('获取全量武器图鉴失败', e) }
+
+    return { avatarItems, weaponItems }
+  }
+
   async fetchRawMaterials(uid, ck) {
     let mergedData = new Map()
-    let [materialDict, weeklyBossDict] = await Promise.all([
-      this.getRemoteJson('materialDict.json'),
-      this.getRemoteJson('weeklyBoss.json')
-    ])
+    // let [materialDict, weeklyBossDict] = await Promise.all([
+    //   this.getRemoteJson('materialDict.json'),
+    //   this.getRemoteJson('weeklyBoss.json')
+    // ])
 
-    let manualDict = materialDict?.data || materialDict || {}
-    let weeklyList = Array.isArray(weeklyBossDict) ? weeklyBossDict : (weeklyBossDict?.data || [])
+    // let manualDict = materialDict?.data || materialDict || {}
+    // let weeklyList = Array.isArray(weeklyBossDict) ? weeklyBossDict : (weeklyBossDict?.data || [])
+    let manualDict = MANUAL_DICT
+    let weeklyList = WEEKLY_LIST
     let dict = await this.getMapDict()
 
     const getDynamicType = (item) => {
@@ -146,13 +196,12 @@ export class MyMaterialPack extends plugin {
       return 'other'
     }
 
-    // 大地图接口
     try {
       let mapUrl = "https://api-takumi.mihoyo.com/common/map_user/ys_obc/v1/user/sync_game_material_info?map_id=2&app_sn=ys_obc&lang=zh-cn"
       let mapRes = await fetch(mapUrl, { headers: { "Cookie": ck, "Referer": "https://act.mihoyo.com" } }).then(res => res.json())
       if (mapRes?.retcode === 0) {
         for (let [id, num] of Object.entries(mapRes.data.material_info)) {
-          if (num <= 0) continue
+          if (num <= 0) continue 
           let name = dict[id]?.name || Material.get(Number(id))?.name
           if (!name) continue
           
@@ -165,33 +214,39 @@ export class MyMaterialPack extends plugin {
       console.error('大地图接口错误:', e)
     }
 
-    let region = (String(uid)[0] === '1' || String(uid)[0] === '2') ? 'cn_gf01' : 'cn_qd01'
+    let { avatarItems, weaponItems } = await this.getDynamicComputePayload(ck)
 
-    for (let file of ['avatarCompute.json', 'weaponCompute.json']) {
+    let region = (String(uid)[0] === '1' || String(uid)[0] === '2') ? 'cn_gf01' : 'cn_qd01'
+    let fpRes = await MysInfo.get(this.e, 'getFp')
+    let fp = fpRes?.data?.device_fp || ''
+    let silentE = { ...this.e, reply: () => {} }
+
+    let computeBodies = []
+    if (avatarItems.length > 0) computeBodies.push({ items: avatarItems, uid: String(uid), region })
+    if (weaponItems.length > 0) computeBodies.push({ items: weaponItems, uid: String(uid), region })
+
+    for (let reqBody of computeBodies) {
       try {
-        let body = await this.getRemoteJson(file)
-        if (!body) continue
-        
-        let silentE = { ...this.e, reply: () => {} }
-        let res = await MysInfo.get(silentE, 'compute', { body: { ...body, uid: String(uid), region } })
+        let res = await MysInfo.get(silentE, 'compute', { 
+          body: reqBody,
+          headers: { 'x-rpc-device_fp': fp }
+        })
         
         if (res?.retcode === 0 && res.data?.overall_consume) {
-            res.data.overall_consume.forEach(val => {
-              let owned = val.lack_num < 0 ? Math.abs(val.lack_num) + val.num : val.num - val.lack_num
-              if (owned > 0) {
-                if (mergedData.has(val.name)) {
-                  // 数量不应累加，直接赋等值覆盖。彻底根除摩拉和所有材料的重复计算问题
-                  mergedData.get(val.name).num = owned
-                } else {
-                  
-                  let type = getDynamicType(val)
-                  mergedData.set(val.name, { id: val.id, name: val.name, num: owned, icon: val.icon, type })
-                }
+          res.data.overall_consume.forEach(val => {
+            let owned = val.lack_num < 0 ? Math.abs(val.lack_num) + val.num : val.num - val.lack_num
+            if (owned > 0) {
+              if (mergedData.has(val.name)) {
+                mergedData.get(val.name).num = Math.max(mergedData.get(val.name).num, owned)
+              } else {
+                let type = getDynamicType(val)
+                mergedData.set(val.name, { id: val.id, name: val.name, num: owned, icon: val.icon, type })
               }
-            })
-          }
+            }
+          })
+        }
       } catch (e) {
-        console.error(`处理 ${file} 时出错:`, e)
+        console.error(`处理计算器数据时出错:`, e)
       }
     }
 
@@ -199,15 +254,14 @@ export class MyMaterialPack extends plugin {
     for (let item of mergedData.values()) {
       ret[item.type] ||= []; ret[item.type].push(item); ret.length++
     }
+    
     for (let i in ret) { 
       if (Array.isArray(ret[i])) {
         ret[i].sort((a, b) => {
-          // 给摩拉和智识之冕打装置顶权重
           let aTop = (a.name === '摩拉' || a.name === '智识之冕') ? 1 : 0
           let bTop = (b.name === '摩拉' || b.name === '智识之冕') ? 1 : 0
-          
-          if (aTop !== bTop) return bTop - aTop // 权重大者排前面
-          return b.id - a.id // 如果都不是，或者都是，则继续按 ID 降序排列
+          if (aTop !== bTop) return bTop - aTop 
+          return b.id - a.id 
         })
       } 
     }
@@ -221,7 +275,6 @@ export class MyMaterialPack extends plugin {
       let res = await fetch(url).then(res => res.json())
       if (res?.retcode === 0) {
         let dict = {}
-        
         const flatten = (nodes, parentPath) => {
           nodes.forEach(node => {
             let currentPath = [...parentPath, node.name]
@@ -242,29 +295,27 @@ export class MyMaterialPack extends plugin {
     return {}
   }
 
-  async getRemoteJson(fileName) {
-    try {
-      let url = `https://raw.githubusercontent.com/devil233-ui/GsMaterialPack/master/data/${fileName}`
-      let res = await fetch(url) 
-    //   let res = await fetch(url, {
-    //     headers: { 'Authorization': `token ${this.GH_PAT}`, 'Accept': 'application/vnd.github.v3.raw' }
-    //   })
-      let text = await res.text()
-      text = text.replace(/,\s*([\]}])/g, '$1') // 防呆，忽略多余逗号
-      return JSON.parse(text)
-    } catch (e) { 
-      return null 
-    }
-  }
+//   async getRemoteJson(fileName) {
+//     try {
+//       let url = `https://raw.githubusercontent.com/devil233-ui/GsMaterialPack/master/data/${fileName}`
+//       let res = await fetch(url)
+//       let text = await res.text()
+//       text = text.replace(/,\s*([\]}])/g, '$1') // 防呆，忽略多余逗号
+//       return JSON.parse(text)
+//     } catch (e) { 
+//       return null 
+//     }
+//   }
 
   async materialsWeekly() {
     if (this.e.isSr) return this.reply('该功能暂不支持星铁')
     let data = await this.getMaterialsData('weekly', false, false)
     if (!data) return
     
-    let weeklyBossDict = await this.getRemoteJson('weeklyBoss.json')
-    let weeklyList = Array.isArray(weeklyBossDict) ? weeklyBossDict : (weeklyBossDict?.data || [])
-    
+    // let weeklyBossDict = await this.getRemoteJson('weeklyBoss.json')
+    // let weeklyList = Array.isArray(weeklyBossDict) ? weeklyBossDict : (weeklyBossDict?.data || [])
+    let weeklyList = WEEKLY_LIST
+
     if (!data?.materials?.weekly || weeklyList.length === 0) return this.reply('周本材料查询为空或字典获取失败')
 
     const { materials: { weekly } } = data
@@ -294,3 +345,26 @@ export class MyMaterialPack extends plugin {
     if (img) await this.reply(img)
   }
 }
+
+//本插件根据游戏内进行的自定义分类（有别于喵喵）
+const MANUAL_DICT = {
+  "other": [{ "name": "摩拉" }],
+  "talent": [{ "name": "智识之冕" }]
+};
+
+//周本boss字典 (更新至月之六)
+const WEEKLY_LIST = [
+    ["风魔龙", ["东风之翎", "东风之爪", "东风的吐息"]],
+    ["北风的王狼", ["北风之尾", "北风之环", "北风的魂匣"]],
+    ["「公子」", ["吞天之鲸·只角", "魔王之刃·残片", "武炼之魂·孤影"]],
+    ["若陀龙王", ["龙王之冕", "血玉之枝", "鎏金之鳞"]],
+    ["「女士」", ["熔毁之刻", "狱火之蝶", "灰烬之心"]],
+    ["「祸津御建鸣神命」", ["凶将之手眼", "祸神之禊泪", "万劫之真意"]],
+    ["「正机之神」", ["傀儡的悬丝", "无心的渊镜", "空行的虚铃"]],
+    ["阿佩普的绿洲守望者", ["生长天地之蕨草", "原初绿洲之初绽", "亘古树海之一瞬"]],
+    ["吞星之鲸", ["无光丝线", "无光涡眼", "无光质块"]],
+    ["「仆人」", ["残火灯烛", "丝织之羽", "否定裁断"]],
+    ["蚀灭的源焰之主", ["蚀灭的鳞羽", "蚀灭的阳焰", "蚀灭的灵犀"]],
+    ["门扉前的弈局", ["升扬样本·骑士", "升扬样本·战车", "升扬样本·王族"]],
+    ["「博士」", ["贤医的假面", "狂人的约束", "异端的瓶剂"]]
+]
