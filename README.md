@@ -8,13 +8,13 @@
 
 # 全量
 ![9ce4c6853c6a1839261400675b504d27](https://github.com/user-attachments/assets/4ec27300-6e82-423c-b53b-8d7de80df601)
-——————————————————————————————————————————————————————————————
+——————————————————————————————————————————————————
 ![f6762f800e874b89f3f2c844fe853247](https://github.com/user-attachments/assets/55e40f8f-e777-4ea3-ab3a-ee20aef44458)
-——————————————————————————————————————————————————————————————
-![1f1406b24c53b9a7c96bb6b0d534cb66](https://github.com/user-attachments/assets/b2a34b6f-2345-4a2f-bd24-7051a04553af)
+——————————————————————————————————————————————————
+![044e1eba4346f3d019a7594c1125f437](https://github.com/user-attachments/assets/65dd7569-3c9c-49fc-b2b4-b30065ffc956)
 
-# 原神分类
-![d4c0a28478574f27b976718dec6ee976_720](https://github.com/user-attachments/assets/f60e588a-d8e6-4f59-a121-faae5eda8749)
+# 原神分类（举例：武器材料背包）
+![5229de624d7f6cbd339e0242ca28e1b8](https://github.com/user-attachments/assets/5093557d-c862-4b68-946d-97f1e0b99bb0)
 
 </details>
 
