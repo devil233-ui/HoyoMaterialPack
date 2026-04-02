@@ -1,17 +1,19 @@
 # 已知
-支持全量查询和所有分类（仅原神）单独查询。当前版本无法处理养成原神计算器材料溢出问题（官方api限制），仓鼠党如需屏蔽相关展示于js内进行配置。
+支持原铁绝全量查询和所有分类（仅原神，其他俩种类太少没必要）单独查询。当前版本无法处理养成原神计算器材料溢出问题（官方api限制），仓鼠党如需屏蔽相关展示于js内进行配置。
 
-崩铁查询相对较慢是因为风控严必须加sleep机制，当前150ms是相对稳定的阈值，尝试过完全拆除甚至单纯降到100时就直接被防火墙一脚飞了（
-
+崩铁查询相对较慢是因为当下最优解是全图鉴请求，风控严必须加sleep机制，而150ms是相对稳定的阈值，尝试过完全拆除甚至单纯降到100时就直接被防火墙一脚飞了（
 <details>
 
 <summary>效果图点我展开</summary>
 
 # 全量
-![1f1406b24c53b9a7c96bb6b0d534cb66](https://github.com/user-attachments/assets/b2a34b6f-2345-4a2f-bd24-7051a04553af)
 ![9ce4c6853c6a1839261400675b504d27](https://github.com/user-attachments/assets/4ec27300-6e82-423c-b53b-8d7de80df601)
+——————————————————————————————————————————————————————————————
+![f6762f800e874b89f3f2c844fe853247](https://github.com/user-attachments/assets/55e40f8f-e777-4ea3-ab3a-ee20aef44458)
+——————————————————————————————————————————————————————————————
+![1f1406b24c53b9a7c96bb6b0d534cb66](https://github.com/user-attachments/assets/b2a34b6f-2345-4a2f-bd24-7051a04553af)
 
-# 分类
+# 原神分类
 ![d4c0a28478574f27b976718dec6ee976_720](https://github.com/user-attachments/assets/f60e588a-d8e6-4f59-a121-faae5eda8749)
 
 </details>

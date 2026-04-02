@@ -69,7 +69,15 @@
     other: '其他'
 } }}
 
-{{ set typeMap = isSr ? typeMapSr : typeMapGs }}
+{{ set typeMapZzz = { 
+    char: '代理人升级&晋升',
+    talent: '代理人技能升级',
+    weapon: '音擎强化&进阶',
+    exp: '基础材料',
+    other: '其他'
+} }}
+
+{{ set typeMap = isZzz ? typeMapZzz : (isSr ? typeMapSr : typeMapGs) }}
 
 <div class="info_box">
   {{each materials material type}}
@@ -79,7 +87,7 @@
     {{each material val}}
     <div class="material">
       {{ set iconPath = pluResPath + '../../miao-plugin/resources/meta-gs/material/' + type + '/' + val.name + '.webp' }}
-      {{ set useLocalIcon = !isSr && ['weekly', 'talent', 'weapon', 'boss', 'gem', 'specialty', 'monster', 'normal'].includes(type) && val.name !== '智识之冕' }}
+      {{ set useLocalIcon = !isSr && !isZzz && ['weekly', 'talent', 'weapon', 'boss', 'gem', 'specialty', 'monster', 'normal'].includes(type) && val.name !== '智识之冕' }}
       
       <img class="item-icon star{{val.level || (isSr ? 4 : 1)}}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
       

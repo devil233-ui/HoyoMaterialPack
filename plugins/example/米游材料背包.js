@@ -15,7 +15,7 @@ const SHOW_COMPUTE_IN_ALL = true;
 
 //本插件根据游戏内进行的自定义分类（有别于喵喵）
 const MANUAL_DICT = {
-  "other": [{ "name": "摩拉" }, { "name": "信用点" }],
+  "other": [{ "name": "摩拉" }],
   "talent": [{ "name": "智识之冕" }, { "name": "命运的足迹" }]
 };
 
@@ -36,34 +36,29 @@ const WEEKLY_LIST = [
   ["「博士」", ["贤医的假面", "狂人的约束", "异端的瓶剂"]]
 ]
 
-//崩铁周本boss字典 (历战余响)
-const WEEKLY_LIST_SR = [
-  ["末日兽", ["毁灭者的末路"]],
-  ["可可利亚", ["守护者的悲愿"]],
-  ["幻胧", ["无穷假身的遗恨"]],
-  ["碎星王虫", ["蛀星的孕灾"]],
-  ["「神主日」", ["同愿的遗音"]]
-]
-
 export class HoyoMaterialPack extends plugin {
   constructor() {
     super({
       name: '米游材料背包',
-      dsc: '外部动态分类+内置字典材料背包(暂时只支持原铁)',
+      dsc: '外部动态分类+内置字典材料背包(原铁绝)',
       event: 'message',
       priority: -114514,
       rule: [
         { reg: '^#?(原神)?周本(材料|素材)背包(升序|降序)?$', fnc: 'materialsWeekly' },
-        //崩铁只支持全部查询（种类太少没必要）
-        { reg: '^#?(星铁|崩铁)?(原神)?(培养|矿物|木材|其他|道具|天赋|武器|特产|boss|角色突破|全部)?(材料|素材)背包$', fnc: 'materials' }
+        //崩铁和绝区零只支持全部查询（种类太少没必要）
+        { reg: '^#?(原神)?(星铁|崩铁)?(绝区零)?(培养|矿物|木材|其他|道具|天赋|武器|特产|boss|角色突破|全部)?(材料|素材)背包$', fnc: 'materials' }
       ]
     })
     this.mapDict = null
     this._path = process.cwd().replace(/\\/g, "/")
   }
 
+//   async materials() {
+    // let msg = this.e.msg.replace(/^#/, '')
   async materials() {
-    let msg = this.e.msg.replace(/^#/, '')
+    let msg = this.e.msg.replace(/^#/, '').replace(/(星铁|崩铁|绝区零|zzz)/ig, '')
+
+    this.e.isZzz = this.e.msg.includes('绝区零') || this.e.msg.toLowerCase().includes('zzz') || this.e.isZzz
 
     const cmdMap = {
       '矿物': 'ore', '木材': 'wood', '其他': 'other',
@@ -99,10 +94,15 @@ export class HoyoMaterialPack extends plugin {
     if (!binding.ck) return this.e.reply(MysInfo.tips), false
     let ck = binding.ck;
 
-    await this.e.reply(`正在拉取${this.e.isSr ? '崩铁' : '原神'}材料背包，请稍等...`)
+    // await this.e.reply(`正在拉取${this.e.isSr ? '崩铁' : '原神'}材料背包，请稍等...`)
+    await this.e.reply(`正在拉取相应的米游材料背包数据，请稍等...`)
 
     let raw;
-    if (this.e.isSr) {
+    if (this.e.isZzz) {
+      let region = 'prod_gf_cn';
+      raw = await this.fetchZzzRawMaterials(uid, ck, region)
+    }
+    else if (this.e.isSr) {
       let region = 'prod_gf_cn';
       if (String(uid).startsWith('5')) region = 'prod_qd_cn';
       else if (['6', '7', '8', '9'].includes(String(uid)[0])) {
@@ -144,7 +144,7 @@ export class HoyoMaterialPack extends plugin {
       materials = raw
       if (!SHOW_COMPUTE_IN_ALL) {
         delete materials['weapon']
-        // delete materials['boss']//用户相关：你要是大世界boss都能爆那就把这行注释去掉
+        // delete materials['boss'] //用户相关：你要是大世界boss都能爆那就把这行注释去掉
         delete materials['monster']
         delete materials['normal']
       }
@@ -155,8 +155,8 @@ export class HoyoMaterialPack extends plugin {
       materials[target] = raw[target] || []
     }
 
-    // // 🚨 探针：查看最终喂给 HTML 的大类有哪些
-    // console.log(`[米游背包] 探针：最终渲染大类包含 ->`, Object.keys(materials));
+    // 🚨 探针：查看万一被拦截时最终喂给 HTML 的大类有哪些
+    console.log(`[米游背包] 探针：最终渲染大类包含 ->`, Object.keys(materials));
 
     return {
       _res_path: `${path.resolve('./plugins/genshin/resources')}/`,
@@ -164,8 +164,254 @@ export class HoyoMaterialPack extends plugin {
       defaultLayout: path.join(path.resolve('./plugins/miao-plugin/resources'), 'common/layout/default.html'),
       sys: { copyright: 'Created By devil233-ui/HoyoMaterialPack v1.0' },
       uid, role, materials,
-      isSr: this.e.isSr
+      isSr: this.e.isSr,
+      isZzz: this.e.isZzz
     }
+  }
+
+  // ==================== 绝区零专属核心逻辑 ====================
+  async fetchZzzRawMaterials(uid, ck, region) {
+    let ckMap = {};
+    ck.split(';').forEach(item => {
+      let i = item.indexOf('=');
+      if (i > 0) {
+        let k = item.substring(0, i).trim();
+        let v = item.substring(i + 1).trim();
+        if (k && v) ckMap[k] = v;
+      }
+    });
+
+    try {
+      let paths = [
+        `${this._path}/plugins/xiaoyao-cvs-plugin/data/yaml/${this.e.user_id}.yaml`,
+        `${this._path}/plugins/xhh/data/Stoken/${this.e.user_id}.yaml`,
+      ];
+      
+      let foundStokenPath = null;
+      
+      for (let p of paths) {
+        if (fs.existsSync(p)) {
+          let data = YAML.parse(fs.readFileSync(p, 'utf8'));
+          let item = data[uid] || Object.values(data).find(v => String(v.uid) === String(uid));
+          if (item) {
+            let yamlStoken = item.stoken || item.ck_stoken?.match(/stoken=([^;]+)/)?.[1] || '';
+            let yamlStuid = item.stuid || item.ltuid || uid;
+            let yamlMid = item.mid || item.ck_stoken?.match(/mid=([^;]+)/)?.[1] || '';
+            
+            if (yamlStoken && yamlStuid) {
+              ckMap['stoken'] = yamlStoken;
+              ckMap['stuid'] = yamlStuid;
+              ckMap['account_id'] = yamlStuid;
+              ckMap['account_id_v2'] = yamlStuid;
+              if (yamlMid) {
+                ckMap['mid'] = yamlMid;
+                ckMap['account_mid_v2'] = yamlMid;
+              }
+              foundStokenPath = p;
+              break;
+            }
+          }
+        }
+      }
+      
+      if (foundStokenPath) {
+        console.log(`[绝区零背包] 🎯 成功读取 stoken，来源文件: ${foundStokenPath}`);
+      } else {
+        console.log(`[绝区零背包] ⚠️ 警告：遍历了所有路径，均未找到有效的 stoken！`);
+      }
+      
+    } catch (e) { console.error('[绝区零背包] 读取YAML失败', e) }
+
+    let baseCk = Object.entries(ckMap).map(([k, v]) => `${k}=${v}`).join('; ');
+
+    if (ckMap['stoken'] && ckMap['stuid']) {
+      try {
+        let n = region.includes('official') ? 'okr4obncj8bw5a65hbnn5oo6ixjc3l9w' : 'xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs';
+        let t = Math.round(Date.now() / 1000);
+        let r = Math.floor(Math.random() * 900000 + 100000);
+        let b = JSON.stringify({ uid: String(uid), region: region, game_biz: "nap_cn", lang: "zh-cn" });
+        let DS = crypto.createHash('md5').update(`salt=${n}&t=${t}&r=${r}&b=${b}&q=`).digest('hex');
+
+        let rawRes = await fetch(`https://api-takumi.mihoyo.com/common/badge/v1/login/account`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Cookie": baseCk,
+                "x-rpc-client_type": "5",
+                "x-rpc-app_version": "2.44.1",
+                "DS": `${t},${r},${DS}`
+            },
+            body: b
+        });
+        
+        let setCookiesStr = rawRes.headers.raw ? (rawRes.headers.raw()['set-cookie']?.join('; ') || '') : (rawRes.headers.get('set-cookie') || '');
+        let match = setCookiesStr.match(/e_nap_token=([^;, ]+)/);
+        if (match) {
+            ckMap['e_nap_token'] = match[1];
+            console.log(`[绝区零背包] 🛀 拿到专属通行证 e_nap_token`);
+        }
+      } catch (e) {}
+    }
+
+    let finalCk = Object.entries(ckMap).map(([k, v]) => `${k}=${v}`).join('; ');
+
+    let optimalAvatars = [
+      1011, // 安比 (电-击破)
+      1041, //「11号」 (火-强攻)
+      1211, // 艾莲 (冰-强攻)
+      1261, // 简 (物理-异常)
+      1341, // 照（冰-防护）
+      1371, // 仪玄 (以太-命破)
+      1311  // 嘉音（以太-支援）
+    ];
+
+    let safeWeapons = [
+        14125,  //击破
+        14105,  //命破
+        14129,  //强攻
+        14131,  //支援
+        14134,  //防护
+        14133   //异常
+    ];
+
+    let payloads = [];
+
+    optimalAvatars.forEach(aId => {
+      payloads.push({
+        "_debug_name": `角色_${aId}`,
+        "avatar_id": aId,
+        "avatar_level": 60,
+        "avatar_current_level": 1,
+        "avatar_current_promotes": 0,
+        "skills": [
+          {"skill_type": 0, "level": 12, "init_level": 1},
+          {"skill_type": 1, "level": 11, "init_level": 1},
+          {"skill_type": 2, "level": 7, "init_level": 1},
+          {"skill_type": 3, "level": 11, "init_level": 1},
+          {"skill_type": 5, "level": 7, "init_level": 1},
+          {"skill_type": 6, "level": 7, "init_level": 1}
+        ]
+      });
+    });
+
+    safeWeapons.forEach(wId => {
+      payloads.push({
+        "_debug_name": `武器_${wId}`,
+        "avatar_id": 1011,
+        "avatar_level": 60,
+        "avatar_current_level": 60,
+        "avatar_current_promotes": 6,
+        "skills": [
+          {"skill_type": 0, "level": 12, "init_level": 12},
+          {"skill_type": 1, "level": 11, "init_level": 11},
+          {"skill_type": 2, "level": 7, "init_level": 7},
+          {"skill_type": 3, "level": 11, "init_level": 11},
+          {"skill_type": 5, "level": 7, "init_level": 7},
+          {"skill_type": 6, "level": 7, "init_level": 7}
+        ],
+        "weapon_info": {
+          "weapon_id": wId,
+          "weapon_level": 60,
+          "weapon_promotes": 5,
+          "weapon_init_level": 1
+        }
+      });
+    });
+
+    let url = `https://act-api-takumi.mihoyo.com/event/nap_cultivate_tool/user/avatar_calc?uid=${uid}&region=${region}`;
+    let headers = {
+      "Cookie": finalCk,
+      "Content-Type": "application/json",
+      "Referer": "https://act.mihoyo.com/",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "x-rpc-platform": "4",
+      "x-rpc-lang": "zh-cn",
+      "x-rpc-device_id": crypto.randomUUID(),
+      "x-rpc-device_fp": "38d8167aa7add",
+      "x-rpc-cultivate_source": "pc",
+      "x-rpc-is_teaser": "1",
+      "x-rpc-page": "v2.6.1_apps-h_#"
+    };
+
+    let mergedData = new Map();
+    let zzzDict = new Map();
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    let successCount = 0;
+
+    // 🚨 串行发送独立请求
+    for (let body of payloads) {
+      let debugName = body._debug_name;
+      delete body._debug_name; 
+
+      try {
+        let res = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) }).then(r => r.json());
+        if (res?.retcode === 0 && res?.data) {
+          successCount++;
+          ['avatar_consume', 'skill_consume', 'weapon_consume'].forEach(key => {
+            if (res.data[key]) {
+              res.data[key].forEach(item => {
+                let existing = zzzDict.get(String(item.id));
+                if (!existing) existing = { name: item.name, icon: item.icon, rarity: item.rarity, src: new Set() };
+                existing.src.add(key);
+                zzzDict.set(String(item.id), existing);
+              });
+            }
+          });
+          
+          if (res.data.user_owns_materials) {
+            for (let [id, num] of Object.entries(res.data.user_owns_materials)) {
+              mergedData.set(String(id), Math.max(mergedData.get(String(id)) || 0, Number(num)));
+            }
+          }
+        } else {
+          console.error(`[绝区零背包] ❌ [${debugName}] 请求失败:`, res);
+        }
+      } catch (e) {
+        console.error(`[绝区零背包] ❌ [${debugName}] 网络异常:`, e.message);
+      }
+      
+      await sleep(200); 
+    }
+
+    console.log(`[绝区零背包] 轰炸完成，成功响应: ${successCount}/${payloads.length}，抓取总数: ${mergedData.size} 种`);
+
+    const getDynamicTypeZzz = (name, srcSet) => {
+      if (name.includes('丁尼') || name.includes('记录') || name.includes('模块') || name.includes('电池') || name.includes('涂剂')) return 'exp';
+      if (srcSet) {
+         if (srcSet.has('skill_consume')) return 'talent';  
+         if (srcSet.has('avatar_consume')) return 'char';   
+         if (srcSet.has('weapon_consume')) return 'weapon'; 
+      }
+      return 'other'; 
+    }
+
+    const rarityMap = { 'S': 5, 'A': 4, 'B': 3, 'C': 2 }; 
+    let ret = { length: 0 };
+    
+    for (let [id, num] of mergedData.entries()) {
+      if (num <= 0) continue;
+      let info = zzzDict.get(id);
+      let name = info?.name || `未知材料(${id})`;
+      let icon = info?.icon || '';
+      let type = getDynamicTypeZzz(name, info?.src);
+      let level = rarityMap[info?.rarity] || 1; 
+      
+      ret[type] ||= [];
+      ret[type].push({ id: Number(id), name, num, icon, type, level });
+      ret.length++;
+    }
+
+    for (let i in ret) {
+      if (Array.isArray(ret[i])) {
+        ret[i].sort((a, b) => {
+          let aTop = (a.name === '丁尼' || a.name.includes('核心')) ? 1 : 0;
+          let bTop = (b.name === '丁尼' || b.name.includes('核心')) ? 1 : 0;
+          if (aTop !== bTop) return bTop - aTop;
+          return b.level - a.level || b.id - a.id;
+        });
+      }
+    }
+    return ret;
   }
 
   // ==================== 崩铁专属核心逻辑 ====================
@@ -192,6 +438,7 @@ export class HoyoMaterialPack extends plugin {
     try {
       let paths = [
         `${this._path}/plugins/xiaoyao-cvs-plugin/data/yaml/${this.e.user_id}.yaml`,
+        `${this._path}/plugins/xhh/data/Stoken/${this.e.user_id}.yaml`
       ];
       for (let p of paths) {
         if (fs.existsSync(p)) {
@@ -370,7 +617,7 @@ export class HoyoMaterialPack extends plugin {
           }
         } catch (e) {}
       }));
-      await sleep(150); 
+      await sleep(125); 
     }
     console.log(`[米游背包] 测算成功率: ${successCount}/${payloads.length}，抓取总数: ${mergedData.size} 种`);
 
@@ -636,7 +883,7 @@ export class HoyoMaterialPack extends plugin {
     let data = await this.getMaterialsData('weekly', false, false)
     if (!data) return
     
-    let weeklyList = this.e.isSr ? WEEKLY_LIST_SR : WEEKLY_LIST
+    let weeklyList = WEEKLY_LIST
 
     if (!data?.materials?.weekly || weeklyList.length === 0) return this.reply('周本材料查询为空或字典获取失败')
 
